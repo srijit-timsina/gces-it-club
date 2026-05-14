@@ -39,7 +39,7 @@ export default function ImageSlider({ images }: { images: GalleryImage[] }) {
           {img.image_url ? (
              <Image
               src={img.image_url}
-              alt={img.caption || `Slide ${idx + 1}`}
+              alt={img.title || `Slide ${idx + 1}`}
               fill
               style={{ objectFit: "cover" }}
               priority={idx === 0}
