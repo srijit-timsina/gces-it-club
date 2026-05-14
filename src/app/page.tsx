@@ -7,9 +7,9 @@ import type { GalleryImage } from "@/lib/types";
 
 export default function Home() {
   const heroImages: GalleryImage[] = [
-    { id: "1", image_url: "/carousel/Career in IT.jpg", title: "Career in IT", order: 1 },
-    { id: "2", image_url: "/carousel/Software Testing.jpg", title: "Software Testing", order: 2 },
-    { id: "3", image_url: "/carousel/WordpressXReact.jpg", title: "Wordpress x React", order: 3 },
+    { id: "1", image_url: "/Carousel/Career in IT.jpg", title: "Career in IT", order: 1 },
+    { id: "2", image_url: "/Carousel/Software Testing.jpg", title: "Software Testing", order: 2 },
+    { id: "3", image_url: "/Carousel/WordpressXReact.jpg", title: "Wordpress x React", order: 3 },
   ];
 
   return (
