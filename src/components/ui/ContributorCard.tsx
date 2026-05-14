@@ -13,17 +13,6 @@ export default function ContributorCard({ contributor }: { contributor: Contribu
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
-        transition: "all 0.3s ease",
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-        (e.currentTarget as HTMLElement).style.borderColor = "var(--border-accent)";
-        (e.currentTarget as HTMLElement).style.boxShadow = "0 14px 28px rgba(34, 85, 153, 0.16)";
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-        (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
-        (e.currentTarget as HTMLElement).style.boxShadow = "none";
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>

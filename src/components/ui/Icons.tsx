@@ -24,6 +24,12 @@ export function Icon({ name, size = 22, ...props }: IconProps & { name: string }
       return <svg {...base} {...props}><path d="m15.5 6.5-7 7" /><path d="m8.5 6.5 7 7" /><circle cx="12" cy="10" r="7" /><path d="m8.2 16.3-1.1 5.2 4.9-2.9 4.9 2.9-1.1-5.2" /></svg>;
     case "code":
       return <svg {...base} {...props}><path d="m16 18 6-6-6-6" /><path d="m8 6-6 6 6 6" /></svg>;
+    case "braces":
+      return <svg {...base} {...props}><path d="M8 3H7a3 3 0 0 0-3 3v2a2 2 0 0 1-2 2 2 2 0 0 1 2 2v2a3 3 0 0 0 3 3h1" /><path d="M16 21h1a3 3 0 0 0 3-3v-2a2 2 0 0 1 2-2 2 2 0 0 1-2-2v-2a3 3 0 0 0-3-3h-1" /></svg>;
+    case "terminal":
+      return <svg {...base} {...props}><rect x="3" y="4" width="18" height="16" rx="2" /><path d="m8 9 3 3-3 3" /><path d="M13 15h4" /></svg>;
+    case "cpu":
+      return <svg {...base} {...props}><rect x="7" y="7" width="10" height="10" rx="2" /><path d="M9 1v3" /><path d="M15 1v3" /><path d="M9 20v3" /><path d="M15 20v3" /><path d="M20 9h3" /><path d="M20 14h3" /><path d="M1 9h3" /><path d="M1 14h3" /><path d="M10 10h4v4h-4z" /></svg>;
     case "book":
       return <svg {...base} {...props}><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z" /></svg>;
     case "video":

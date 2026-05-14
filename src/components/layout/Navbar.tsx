@@ -11,9 +11,12 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const isHome = pathname === "/";
+  const overHero = isHome && !scrolled && !menuOpen;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -33,17 +36,13 @@ export default function Navbar() {
   return (
     <>
       <nav
+        className={`site-nav ${overHero ? "is-over-hero" : "is-solid"}`}
         style={{
           position: "fixed",
           top: 0,
           left: 0,
           right: 0,
           zIndex: 100,
-          transition: "all 0.3s ease",
-          background: scrolled ? "var(--nav-bg)" : "transparent",
-          backdropFilter: scrolled ? "blur(16px)" : "none",
-          borderBottom: scrolled ? "1px solid var(--border)" : "none",
-          boxShadow: scrolled ? "0 4px 24px rgba(0,0,0,0.3)" : "none",
         }}
       >
         <div
@@ -60,6 +59,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
+            className="site-logo"
             style={{
               display: "flex",
               alignItems: "center",
@@ -80,6 +80,7 @@ export default function Navbar() {
                 borderRadius: "50%",
                 padding: "2px",
               }}
+              className="logo-mark"
             >
               <Image
                 src="/logo/logo.png"
@@ -94,8 +95,9 @@ export default function Navbar() {
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 700,
                   fontSize: "1rem",
-                  color: "var(--text-primary)",
+                  color: "var(--nav-brand-color)",
                   lineHeight: 1.1,
+                  transition: "color 0.25s ease",
                 }}
               >
                 GCES IT Club
@@ -103,9 +105,10 @@ export default function Navbar() {
               <div
                 style={{
                   fontSize: "0.65rem",
-                  color: "var(--text-muted)",
-                  letterSpacing: "0.05em",
+                  color: "var(--nav-muted-color)",
+                  letterSpacing: 0,
                   display: "none",
+                  transition: "color 0.25s ease",
                 }}
                 className="logo-tagline"
               >
@@ -129,38 +132,13 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  className={`nav-link ${isActive ? "is-active" : ""}`}
                   style={{
                     padding: "6px 14px",
                     borderRadius: "8px",
                     fontSize: "0.875rem",
                     fontWeight: 500,
                     textDecoration: "none",
-                    transition: "all 0.2s ease",
-                    color: isActive
-                      ? "var(--accent-primary)"
-                      : "var(--text-secondary)",
-                    background: isActive
-                      ? "rgba(34, 85, 153,0.12)"
-                      : "transparent",
-                    border: isActive
-                      ? "1px solid rgba(34, 85, 153,0.25)"
-                      : "1px solid transparent",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      (e.target as HTMLElement).style.color =
-                        "var(--text-primary)";
-                      (e.target as HTMLElement).style.background =
-                        "var(--accent-soft)";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      (e.target as HTMLElement).style.color =
-                        "var(--text-secondary)";
-                      (e.target as HTMLElement).style.background =
-                        "transparent";
-                    }
                   }}
                 >
                   {link.label}
@@ -169,6 +147,7 @@ export default function Navbar() {
             })}
             <Link
               href="/contributors"
+              className="nav-cta"
               style={{
                 marginLeft: "8px",
                 padding: "7px 16px",
@@ -178,16 +157,7 @@ export default function Navbar() {
                 textDecoration: "none",
                 background: "var(--accent-primary)",
                 color: "white",
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.transform = "translateY(-1px)";
-                (e.target as HTMLElement).style.boxShadow =
-                  "0 4px 15px rgba(34, 85, 153,0.4)";
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.transform = "translateY(0)";
-                (e.target as HTMLElement).style.boxShadow = "none";
+                transition: "transform 0.25s var(--ease-out), box-shadow 0.25s ease, background 0.25s ease",
               }}
             >
               Contributors
@@ -201,8 +171,6 @@ export default function Navbar() {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
             style={{
-              background: "none",
-              border: "none",
               cursor: "pointer",
               padding: "8px",
               borderRadius: "8px",
@@ -219,7 +187,6 @@ export default function Navbar() {
                   display: "block",
                   width: "22px",
                   height: "2px",
-                  background: "var(--text-primary)",
                   borderRadius: "2px",
                   transition: "all 0.3s ease",
                   transform: menuOpen
@@ -231,6 +198,7 @@ export default function Navbar() {
                     : "none",
                   opacity: menuOpen && i === 1 ? 0 : 1,
                 }}
+                className="hamburger-line"
               />
             ))}
           </button>
@@ -239,6 +207,7 @@ export default function Navbar() {
         {/* Mobile menu */}
         {menuOpen && (
           <div
+            className="mobile-menu"
             style={{
               background: "var(--nav-bg)",
               backdropFilter: "blur(16px)",
@@ -255,6 +224,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  className={`nav-link ${isActive ? "is-active" : ""}`}
                   style={{
                     display: "block",
                     padding: "12px 16px",
@@ -263,13 +233,6 @@ export default function Navbar() {
                     fontWeight: 500,
                     textDecoration: "none",
                     marginBottom: "4px",
-                    color: isActive
-                      ? "var(--accent-primary)"
-                      : "var(--text-secondary)",
-                    background: isActive
-                      ? "rgba(34, 85, 153,0.1)"
-                      : "transparent",
-                    transition: "all 0.2s ease",
                   }}
                 >
                   {link.label}

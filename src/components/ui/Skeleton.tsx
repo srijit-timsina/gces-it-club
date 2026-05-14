@@ -1,19 +1,26 @@
 export function CardSkeleton() {
   return (
     <div
+      className="skeleton-card"
+      aria-hidden="true"
       style={{
-        background: "var(--bg-card)",
-        border: "1px solid var(--border)",
-        borderRadius: "8px",
-        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <div className="skeleton" style={{ height: "180px", borderRadius: 0 }} />
       <div style={{ padding: "1.25rem" }}>
-        <div className="skeleton" style={{ height: "20px", width: "70%", marginBottom: "0.75rem" }} />
+        <div style={{ display: "flex", gap: "8px", marginBottom: "1rem" }}>
+          <div className="skeleton" style={{ height: "22px", width: "82px", borderRadius: "999px" }} />
+          <div className="skeleton" style={{ height: "22px", width: "58px", borderRadius: "999px" }} />
+        </div>
+        <div className="skeleton" style={{ height: "22px", width: "72%", marginBottom: "0.85rem" }} />
         <div className="skeleton" style={{ height: "14px", width: "90%", marginBottom: "0.5rem" }} />
-        <div className="skeleton" style={{ height: "14px", width: "75%", marginBottom: "1rem" }} />
-        <div className="skeleton" style={{ height: "36px", width: "50%", borderRadius: "8px" }} />
+        <div className="skeleton" style={{ height: "14px", width: "78%", marginBottom: "1.2rem" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div className="skeleton" style={{ height: "38px", width: "48%", borderRadius: "10px" }} />
+          <div className="skeleton" style={{ height: "36px", width: "36px", borderRadius: "50%" }} />
+        </div>
       </div>
     </div>
   );
@@ -29,7 +36,9 @@ export function GridSkeleton({ count = 6 }: { count?: number }) {
       }}
     >
       {Array.from({ length: count }).map((_, i) => (
-        <CardSkeleton key={i} />
+        <div key={i} style={{ animationDelay: `${i * 0.05}s` }}>
+          <CardSkeleton />
+        </div>
       ))}
     </div>
   );
@@ -38,10 +47,9 @@ export function GridSkeleton({ count = 6 }: { count?: number }) {
 export function TeamCardSkeleton() {
   return (
     <div
+      className="skeleton-card"
+      aria-hidden="true"
       style={{
-        background: "var(--bg-card)",
-        border: "1px solid var(--border)",
-        borderRadius: "8px",
         padding: "1.5rem",
         display: "flex",
         flexDirection: "column",

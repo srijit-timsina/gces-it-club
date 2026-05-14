@@ -20,21 +20,8 @@ export default function TeamCard({ member }: { member: TeamMember }) {
           alignItems: "center",
           textAlign: "center",
           cursor: "pointer",
-          transition: "all 0.3s ease",
         }}
         onClick={() => setIsModalOpen(true)}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = "translateY(-5px)";
-          (e.currentTarget as HTMLElement).style.borderColor =
-            "var(--border-accent)";
-          (e.currentTarget as HTMLElement).style.background =
-            "var(--bg-card-hover)";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-          (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
-          (e.currentTarget as HTMLElement).style.background = "var(--bg-card)";
-        }}
       >
         <div
           style={{
@@ -87,7 +74,7 @@ export default function TeamCard({ member }: { member: TeamMember }) {
           style={{
             fontSize: "1.2rem",
             fontWeight: 700,
-            color: "#1a1a1a",
+            color: "var(--text-primary)",
             marginBottom: "0.25rem",
           }}
         >
@@ -95,7 +82,7 @@ export default function TeamCard({ member }: { member: TeamMember }) {
         </h3>
         <div
           style={{
-            color: "#0066cc",
+            color: "var(--accent-primary)",
             fontSize: "0.9rem",
             fontWeight: 500,
             marginBottom: "0.75rem",
@@ -108,7 +95,7 @@ export default function TeamCard({ member }: { member: TeamMember }) {
           <div
             style={{
               fontSize: "0.8rem",
-              color: "#555555",
+              color: "var(--text-muted)",
               background: "var(--chip-bg)",
               padding: "2px 8px",
               borderRadius: "99px",
@@ -163,7 +150,7 @@ export default function TeamCard({ member }: { member: TeamMember }) {
           <h2
             style={{
               fontSize: "1.8rem",
-              color: "#1a1a1a",
+              color: "var(--text-primary)",
               marginBottom: "0.5rem",
             }}
           >
@@ -171,7 +158,7 @@ export default function TeamCard({ member }: { member: TeamMember }) {
           </h2>
           <div
             style={{
-              color: "#0066cc",
+              color: "var(--accent-primary)",
               fontSize: "1.1rem",
               fontWeight: 500,
               marginBottom: "1rem",
@@ -185,7 +172,7 @@ export default function TeamCard({ member }: { member: TeamMember }) {
               style={{
                 display: "inline-block",
                 fontSize: "0.85rem",
-                color: "#555555",
+                color: "var(--text-muted)",
                 background: "var(--chip-bg)",
                 padding: "4px 12px",
                 borderRadius: "99px",
@@ -198,7 +185,7 @@ export default function TeamCard({ member }: { member: TeamMember }) {
 
           <p
             style={{
-              color: "#333333",
+              color: "var(--text-secondary)",
               lineHeight: 1.6,
               marginBottom: "2rem",
               textAlign: "left",
@@ -221,9 +208,15 @@ export default function TeamCard({ member }: { member: TeamMember }) {
                 href={member.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: "#333333", transition: "color 0.2s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#0066cc")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#333333")}
+                style={{ color: "var(--text-secondary)", transition: "color 0.2s, transform 0.2s", display: "inline-flex" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "var(--accent-primary)";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "var(--text-secondary)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
               >
                 <svg
                   width="24"
@@ -240,9 +233,15 @@ export default function TeamCard({ member }: { member: TeamMember }) {
                 href={member.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: "#333333", transition: "color 0.2s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#0066cc")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#333333")}
+                style={{ color: "var(--text-secondary)", transition: "color 0.2s, transform 0.2s", display: "inline-flex" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "var(--accent-primary)";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "var(--text-secondary)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
               >
                 <svg
                   width="24"
@@ -257,9 +256,15 @@ export default function TeamCard({ member }: { member: TeamMember }) {
             {member.email && (
               <a
                 href={`mailto:${member.email}`}
-                style={{ color: "#333333", transition: "color 0.2s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#d9534f")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#333333")}
+                style={{ color: "var(--text-secondary)", transition: "color 0.2s, transform 0.2s", display: "inline-flex" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "var(--accent-rose)";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "var(--text-secondary)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
               >
                 <svg
                   width="24"

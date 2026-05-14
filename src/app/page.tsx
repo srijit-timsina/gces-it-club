@@ -5,6 +5,7 @@ import ImageSlider from "@/components/ui/ImageSlider";
 import AnnouncementPopup from "@/components/ui/AnnouncementBanner";
 import { Icon } from "@/components/ui/Icons";
 import CountUp from "@/components/ui/CountUp";
+import FloatingCodeIcons from "@/components/ui/FloatingCodeIcons";
 import type { GalleryImage } from "@/lib/types";
 
 export default function Home() {
@@ -18,7 +19,7 @@ export default function Home() {
     <div>
       <AnnouncementPopup />
       {/* Hero Section */}
-      <section style={{ height: "100vh", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+      <section style={{ height: "100svh", minHeight: "680px", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", background: "#07101f" }}>
         {/* Image Slider Background */}
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
           {heroImages.length > 0 ? (
@@ -27,24 +28,26 @@ export default function Home() {
             <div style={{ position: "absolute", inset: 0, background: "rgba(10,14,26,0.92)" }} />
           )}
         </div>
-        
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 1.5rem", position: "relative", zIndex: 1, textAlign: "center" }}>
-          <div className="badge badge-blue animate-fadeInUp" style={{ marginBottom: "1.5rem" }}>
+
+        <FloatingCodeIcons />
+
+        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 1.5rem", position: "relative", zIndex: 3, textAlign: "center" }}>
+          <div className="badge badge-blue animate-fadeInUp" style={{ marginBottom: "1.5rem", color: "#dbeafe", borderColor: "rgba(255,255,255,0.24)", background: "rgba(255,255,255,0.1)", backdropFilter: "blur(10px)" }}>
             {SITE_CONFIG.name}
           </div>
-          <h1 className="animate-fadeInUp delay-100" style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", fontWeight: 900, marginBottom: "1.5rem", letterSpacing: "-0.02em" }}>
+          <h1 className="animate-fadeInUp delay-100" style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", fontWeight: 900, marginBottom: "1.5rem", letterSpacing: 0 }}>
             <span style={{ display: "block", color: "#f8fafc" }}>Welcome to the</span>
-            <span className="accent-text">Future of Tech</span>
+            <span style={{ color: "#7dd3fc" }}>Future of Tech</span>
           </h1>
           <p className="animate-fadeInUp delay-200" style={{ fontSize: "clamp(1rem, 2vw, 1.25rem)", color: "#dbeafe", maxWidth: "600px", margin: "0 auto 2.5rem", lineHeight: 1.8 }}>
             {SITE_CONFIG.tagline} We are a community of passionate developers, designers, and innovators at {SITE_CONFIG.fullName}.
           </p>
           <div className="animate-fadeInUp delay-300" style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <a href="/join" className="btn-primary" style={{ padding: "12px 32px", fontSize: "1rem" }}>
-              Join the Club
+              Join the Club <Icon name="arrow-right" size={18} />
             </a>
-            <a href="/events" className="btn-secondary" style={{ padding: "12px 32px", fontSize: "1rem" }}>
-              Explore Events
+            <a href="/events" className="btn-secondary" style={{ padding: "12px 32px", fontSize: "1rem", color: "#ffffff", borderColor: "rgba(255,255,255,0.32)", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(10px)" }}>
+              <Icon name="calendar" size={18} /> Explore Events
             </a>
           </div>
         </div>

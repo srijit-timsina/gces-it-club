@@ -31,20 +31,9 @@ export default function EventCard({ event }: { event: Event }) {
           flexDirection: "column",
           height: "100%",
           overflow: "hidden",
-          transition: "all 0.3s ease",
           cursor: "pointer",
         }}
         onClick={() => setIsModalOpen(true)}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-          (e.currentTarget as HTMLElement).style.borderColor = "var(--border-accent)";
-          (e.currentTarget as HTMLElement).style.boxShadow = "0 14px 28px rgba(34, 85, 153, 0.16)";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-          (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
-          (e.currentTarget as HTMLElement).style.boxShadow = "none";
-        }}
       >
         {/* Image Placeholder or Actual Image */}
         <div style={{ height: 160, position: "relative", background: "var(--bg-secondary)", overflow: "hidden" }}>
@@ -53,6 +42,7 @@ export default function EventCard({ event }: { event: Event }) {
               src={event.image_url}
               alt={event.title}
               fill
+              className="card-media-image"
               style={{ objectFit: "cover" }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
