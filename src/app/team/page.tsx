@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import TeamCard from "@/components/ui/TeamCard";
 import { GridSkeleton } from "@/components/ui/Skeleton";
+import { Icon } from "@/components/ui/Icons";
 import type { TeamMember } from "@/lib/types";
 
 export default function TeamPage() {
@@ -35,7 +36,7 @@ export default function TeamPage() {
   };
 
   useEffect(() => {
-    loadTeam();
+    queueMicrotask(loadTeam);
   }, []);
 
   // Safe role check — never crashes if role is undefined/null
@@ -54,17 +55,17 @@ export default function TeamPage() {
       {/* Page Header */}
       <div
         style={{
-          background: "linear-gradient(to bottom, rgba(37,99,235,0.1), transparent)",
+          background: "var(--subtle-section)",
           padding: "4rem 0 2rem",
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
+          borderBottom: "1px solid var(--border)",
           marginBottom: "3rem",
         }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 1.5rem", textAlign: "center" }}>
-          <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 800, color: "#f1f5f9", marginBottom: "1rem" }}>
-            Meet Our <span className="gradient-text">Team</span>
+          <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 800, color: "var(--text-primary)", marginBottom: "1rem" }}>
+            Meet Our <span className="accent-text">Team</span>
           </h1>
-          <p style={{ color: "#94a3b8", fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
             The dedicated individuals working behind the scenes to make the club awesome.
           </p>
         </div>
@@ -82,16 +83,18 @@ export default function TeamPage() {
             style={{
               textAlign: "center",
               padding: "5rem 2rem",
-              background: "rgba(220,38,38,0.06)",
-              border: "1px solid rgba(220,38,38,0.2)",
+              background: "rgba(20,95,120,0.06)",
+              border: "1px solid rgba(20,95,120,0.2)",
               borderRadius: "16px",
             }}
           >
-            <div style={{ fontSize: "4rem", marginBottom: "1.25rem" }}>⚠️</div>
-            <h3 style={{ fontSize: "1.5rem", color: "#f1f5f9", marginBottom: "0.75rem", fontWeight: 700 }}>
+            <div className="icon-tile" style={{ margin: "0 auto 1.25rem" }}>
+              <Icon name="alert" size={28} />
+            </div>
+            <h3 style={{ fontSize: "1.5rem", color: "var(--text-primary)", marginBottom: "0.75rem", fontWeight: 700 }}>
               Something went wrong
             </h3>
-            <p style={{ color: "#94a3b8", fontSize: "1rem", maxWidth: "400px", margin: "0 auto 2rem" }}>
+            <p style={{ color: "var(--text-secondary)", fontSize: "1rem", maxWidth: "400px", margin: "0 auto 2rem" }}>
               We couldn&apos;t load the team data right now. Please check your internet connection or try again later.
             </p>
             <button
@@ -99,7 +102,7 @@ export default function TeamPage() {
               style={{
                 padding: "10px 28px",
                 borderRadius: "8px",
-                background: "linear-gradient(135deg, #2563eb 0%, #dc2626 100%)",
+                background: "var(--accent-primary)",
                 color: "#fff",
                 border: "none",
                 fontWeight: 600,
@@ -114,9 +117,11 @@ export default function TeamPage() {
 
         {/* Empty State */}
         {!loading && !error && team.length === 0 && (
-          <div style={{ textAlign: "center", padding: "4rem 0", color: "#64748b" }}>
-            <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>👥</div>
-            <h3 style={{ fontSize: "1.2rem", color: "#f1f5f9", marginBottom: "0.5rem" }}>No team members found</h3>
+          <div style={{ textAlign: "center", padding: "4rem 0", color: "var(--text-muted)" }}>
+            <div className="icon-tile" style={{ margin: "0 auto 1rem" }}>
+              <Icon name="users" size={28} />
+            </div>
+            <h3 style={{ fontSize: "1.2rem", color: "var(--text-primary)", marginBottom: "0.5rem" }}>No team members found</h3>
             <p>Team data will appear here once it is added to the sheet.</p>
           </div>
         )}

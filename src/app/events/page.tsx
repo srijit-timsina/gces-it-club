@@ -5,6 +5,7 @@ import EventCard from "@/components/ui/EventCard";
 import { GridSkeleton } from "@/components/ui/Skeleton";
 import SearchBar from "@/components/ui/SearchBar";
 import FilterButtons from "@/components/ui/FilterButtons";
+import { Icon } from "@/components/ui/Icons";
 import type { Event } from "@/lib/types";
 
 export default function EventsPage() {
@@ -44,12 +45,12 @@ export default function EventsPage() {
   return (
     <div style={{ paddingTop: "80px", minHeight: "100vh" }}>
       {/* Header */}
-      <div style={{ background: "linear-gradient(to bottom, rgba(59,130,246,0.1), transparent)", padding: "4rem 0 2rem", borderBottom: "1px solid rgba(255,255,255,0.05)", marginBottom: "3rem" }}>
+      <div style={{ background: "var(--subtle-section)", padding: "4rem 0 2rem", borderBottom: "1px solid var(--border)", marginBottom: "3rem" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 1.5rem", textAlign: "center" }}>
-          <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 800, color: "#f1f5f9", marginBottom: "1rem" }}>
-            Events & <span className="gradient-text">Workshops</span>
+          <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 800, color: "var(--text-primary)", marginBottom: "1rem" }}>
+            Events & <span className="accent-text">Workshops</span>
           </h1>
-          <p style={{ color: "#94a3b8", fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
             Join our upcoming hackathons, tech talks, and hands-on workshops.
           </p>
         </div>
@@ -83,9 +84,11 @@ export default function EventsPage() {
             ))}
           </div>
         ) : (
-          <div style={{ textAlign: "center", padding: "4rem 0", color: "#64748b" }}>
-            <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>🔍</div>
-            <h3 style={{ fontSize: "1.2rem", color: "#f1f5f9", marginBottom: "0.5rem" }}>No events found</h3>
+          <div style={{ textAlign: "center", padding: "4rem 0", color: "var(--text-muted)" }}>
+            <div className="icon-tile" style={{ margin: "0 auto 1rem" }}>
+              <Icon name="search" size={28} />
+            </div>
+            <h3 style={{ fontSize: "1.2rem", color: "var(--text-primary)", marginBottom: "0.5rem" }}>No events found</h3>
             <p>Try adjusting your search or filters.</p>
           </div>
         )}

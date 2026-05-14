@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Modal from "./Modal";
+import { Icon } from "./Icons";
 import type { Event } from "@/lib/types";
 
 export default function EventCard({ event }: { event: Event }) {
@@ -15,7 +16,7 @@ export default function EventCard({ event }: { event: Event }) {
       case "ongoing":
         return <span className="badge badge-blue">Ongoing</span>;
       case "past":
-        return <span className="badge badge-secondary" style={{ background: "rgba(255,255,255,0.1)", color: "#94a3b8" }}>Past</span>;
+        return <span className="badge badge-secondary" style={{ background: "var(--chip-bg)", color: "var(--text-secondary)" }}>Past</span>;
       default:
         return null;
     }
@@ -24,7 +25,7 @@ export default function EventCard({ event }: { event: Event }) {
   return (
     <>
       <div
-        className="glass-card"
+        className="glass-card interactive-card"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -36,12 +37,12 @@ export default function EventCard({ event }: { event: Event }) {
         onClick={() => setIsModalOpen(true)}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-          (e.currentTarget as HTMLElement).style.borderColor = "rgba(59,130,246,0.3)";
-          (e.currentTarget as HTMLElement).style.boxShadow = "0 10px 30px rgba(0,0,0,0.5)";
+          (e.currentTarget as HTMLElement).style.borderColor = "var(--border-accent)";
+          (e.currentTarget as HTMLElement).style.boxShadow = "0 14px 28px rgba(34, 85, 153, 0.16)";
         }}
         onMouseLeave={(e) => {
           (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-          (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.06)";
+          (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
           (e.currentTarget as HTMLElement).style.boxShadow = "none";
         }}
       >
@@ -56,8 +57,8 @@ export default function EventCard({ event }: { event: Event }) {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (
-            <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, #1e293b 0%, #0f1629 100%)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontSize: "3rem", opacity: 0.2 }}>📅</span>
+            <div style={{ width: "100%", height: "100%", background: "var(--accent-soft)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Icon name="calendar" size={48} style={{ opacity: 0.6, color: "var(--accent-primary)" }} />
             </div>
           )}
           <div style={{ position: "absolute", top: "12px", right: "12px" }}>
@@ -66,24 +67,24 @@ export default function EventCard({ event }: { event: Event }) {
         </div>
 
         <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", flexGrow: 1 }}>
-          <h3 style={{ fontSize: "1.25rem", marginBottom: "0.5rem", color: "#f1f5f9" }}>{event.title}</h3>
+          <h3 style={{ fontSize: "1.25rem", marginBottom: "0.5rem", color: "var(--text-primary)" }}>{event.title}</h3>
           
-          <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginBottom: "1rem", fontSize: "0.85rem", color: "#94a3b8" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginBottom: "1rem", fontSize: "0.85rem", color: "var(--text-secondary)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <span>🗓️</span> <span>{new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} at {event.time}</span>
+              <Icon name="calendar" size={15} /> <span>{new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} at {event.time}</span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <span>📍</span> <span>{event.location}</span>
+              <Icon name="map-pin" size={15} /> <span>{event.location}</span>
             </div>
           </div>
 
-          <p style={{ fontSize: "0.9rem", color: "#cbd5e1", flexGrow: 1, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+          <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", flexGrow: 1, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
             {event.description}
           </p>
 
           <div style={{ marginTop: "1.5rem" }}>
-            <span style={{ color: "#3b82f6", fontSize: "0.9rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "4px" }}>
-              View Details <span style={{ transition: "transform 0.2s ease" }}>→</span>
+            <span style={{ color: "var(--accent-primary)", fontSize: "0.9rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "4px" }}>
+              View Details <Icon name="arrow-right" size={15} />
             </span>
           </div>
         </div>
@@ -93,28 +94,28 @@ export default function EventCard({ event }: { event: Event }) {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <div style={{ padding: "2rem" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.5rem" }}>
-            <h2 style={{ fontSize: "1.8rem", color: "#f1f5f9", paddingRight: "2rem" }}>{event.title}</h2>
+            <h2 style={{ fontSize: "1.8rem", color: "var(--text-primary)", paddingRight: "2rem" }}>{event.title}</h2>
             {getStatusBadge()}
           </div>
 
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", marginBottom: "2rem", padding: "1.5rem", background: "rgba(255,255,255,0.03)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.05)" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", marginBottom: "2rem", padding: "1.5rem", background: "var(--chip-bg)", borderRadius: "8px", border: "1px solid var(--border)" }}>
             <div>
-              <div style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em", color: "#64748b", marginBottom: "4px" }}>Date</div>
-              <div style={{ color: "#f1f5f9", fontWeight: 500 }}>{new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</div>
+              <div style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted)", marginBottom: "4px" }}>Date</div>
+              <div style={{ color: "var(--text-primary)", fontWeight: 500 }}>{new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</div>
             </div>
             <div>
-              <div style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em", color: "#64748b", marginBottom: "4px" }}>Time</div>
-              <div style={{ color: "#f1f5f9", fontWeight: 500 }}>{event.time}</div>
+              <div style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted)", marginBottom: "4px" }}>Time</div>
+              <div style={{ color: "var(--text-primary)", fontWeight: 500 }}>{event.time}</div>
             </div>
             <div>
-              <div style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em", color: "#64748b", marginBottom: "4px" }}>Location</div>
-              <div style={{ color: "#f1f5f9", fontWeight: 500 }}>{event.location}</div>
+              <div style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted)", marginBottom: "4px" }}>Location</div>
+              <div style={{ color: "var(--text-primary)", fontWeight: 500 }}>{event.location}</div>
             </div>
           </div>
 
           <div style={{ marginBottom: "2.5rem" }}>
-            <h3 style={{ fontSize: "1.1rem", marginBottom: "1rem", color: "#f1f5f9" }}>About this event</h3>
-            <p style={{ color: "#cbd5e1", lineHeight: 1.7, whiteSpace: "pre-wrap" }}>
+            <h3 style={{ fontSize: "1.1rem", marginBottom: "1rem", color: "var(--text-primary)" }}>About this event</h3>
+            <p style={{ color: "var(--text-secondary)", lineHeight: 1.7, whiteSpace: "pre-wrap" }}>
               {event.description}
             </p>
           </div>

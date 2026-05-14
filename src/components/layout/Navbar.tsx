@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAV_LINKS, SITE_CONFIG } from "@/lib/constants";
+import { NAV_LINKS } from "@/lib/constants";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,13 +19,15 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    setMenuOpen(false);
+    queueMicrotask(() => setMenuOpen(false));
   }, [pathname]);
 
   // Prevent body scroll when menu open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [menuOpen]);
 
   return (
@@ -37,11 +40,9 @@ export default function Navbar() {
           right: 0,
           zIndex: 100,
           transition: "all 0.3s ease",
-          background: scrolled
-            ? "rgba(10,14,26,0.95)"
-            : "transparent",
+          background: scrolled ? "var(--nav-bg)" : "transparent",
           backdropFilter: scrolled ? "blur(16px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
+          borderBottom: scrolled ? "1px solid var(--border)" : "none",
           boxShadow: scrolled ? "0 4px 24px rgba(0,0,0,0.3)" : "none",
         }}
       >
@@ -80,7 +81,12 @@ export default function Navbar() {
                 padding: "2px",
               }}
             >
-              <Image src="/logo/logo.png" alt="GCES Logo" fill style={{ objectFit: "contain", borderRadius: "50%" }} />
+              <Image
+                src="/logo/logo.png"
+                alt="GCES Logo"
+                fill
+                style={{ objectFit: "contain", borderRadius: "50%" }}
+              />
             </div>
             <div>
               <div
@@ -88,7 +94,7 @@ export default function Navbar() {
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 700,
                   fontSize: "1rem",
-                  color: "#f1f5f9",
+                  color: "var(--text-primary)",
                   lineHeight: 1.1,
                 }}
               >
@@ -97,7 +103,7 @@ export default function Navbar() {
               <div
                 style={{
                   fontSize: "0.65rem",
-                  color: "#64748b",
+                  color: "var(--text-muted)",
                   letterSpacing: "0.05em",
                   display: "none",
                 }}
@@ -130,20 +136,30 @@ export default function Navbar() {
                     fontWeight: 500,
                     textDecoration: "none",
                     transition: "all 0.2s ease",
-                    color: isActive ? "#60a5fa" : "#94a3b8",
-                    background: isActive ? "rgba(59,130,246,0.1)" : "transparent",
-                    border: isActive ? "1px solid rgba(59,130,246,0.2)" : "1px solid transparent",
+                    color: isActive
+                      ? "var(--accent-primary)"
+                      : "var(--text-secondary)",
+                    background: isActive
+                      ? "rgba(34, 85, 153,0.12)"
+                      : "transparent",
+                    border: isActive
+                      ? "1px solid rgba(34, 85, 153,0.25)"
+                      : "1px solid transparent",
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {
-                      (e.target as HTMLElement).style.color = "#f1f5f9";
-                      (e.target as HTMLElement).style.background = "rgba(255,255,255,0.05)";
+                      (e.target as HTMLElement).style.color =
+                        "var(--text-primary)";
+                      (e.target as HTMLElement).style.background =
+                        "var(--accent-soft)";
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isActive) {
-                      (e.target as HTMLElement).style.color = "#94a3b8";
-                      (e.target as HTMLElement).style.background = "transparent";
+                      (e.target as HTMLElement).style.color =
+                        "var(--text-secondary)";
+                      (e.target as HTMLElement).style.background =
+                        "transparent";
                     }
                   }}
                 >
@@ -160,13 +176,14 @@ export default function Navbar() {
                 fontSize: "0.875rem",
                 fontWeight: 600,
                 textDecoration: "none",
-                background: "linear-gradient(135deg, #2563eb 0%, #dc2626 100%)",
+                background: "var(--accent-primary)",
                 color: "white",
                 transition: "all 0.2s ease",
               }}
               onMouseEnter={(e) => {
                 (e.target as HTMLElement).style.transform = "translateY(-1px)";
-                (e.target as HTMLElement).style.boxShadow = "0 4px 15px rgba(59,130,246,0.4)";
+                (e.target as HTMLElement).style.boxShadow =
+                  "0 4px 15px rgba(34, 85, 153,0.4)";
               }}
               onMouseLeave={(e) => {
                 (e.target as HTMLElement).style.transform = "translateY(0)";
@@ -175,6 +192,7 @@ export default function Navbar() {
             >
               Contributors
             </Link>
+            <ThemeToggle />
           </div>
 
           {/* Mobile hamburger */}
@@ -201,17 +219,16 @@ export default function Navbar() {
                   display: "block",
                   width: "22px",
                   height: "2px",
-                  background: "#f1f5f9",
+                  background: "var(--text-primary)",
                   borderRadius: "2px",
                   transition: "all 0.3s ease",
-                  transform:
-                    menuOpen
-                      ? i === 0
-                        ? "rotate(45deg) translate(5px, 5px)"
-                        : i === 1
-                        ? "opacity: 0; scaleX(0)"
+                  transform: menuOpen
+                    ? i === 0
+                      ? "rotate(45deg) translate(5px, 5px)"
+                      : i === 1
+                        ? "scaleX(0)"
                         : "rotate(-45deg) translate(5px, -5px)"
-                      : "none",
+                    : "none",
                   opacity: menuOpen && i === 1 ? 0 : 1,
                 }}
               />
@@ -223,37 +240,45 @@ export default function Navbar() {
         {menuOpen && (
           <div
             style={{
-              background: "rgba(10,14,26,0.98)",
+              background: "var(--nav-bg)",
               backdropFilter: "blur(16px)",
-              borderTop: "1px solid rgba(255,255,255,0.06)",
+              borderTop: "1px solid var(--border)",
               padding: "1rem 1.5rem 1.5rem",
             }}
           >
-            {[...NAV_LINKS, { label: "Contributors", href: "/contributors" }].map(
-              (link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    style={{
-                      display: "block",
-                      padding: "12px 16px",
-                      borderRadius: "10px",
-                      fontSize: "1rem",
-                      fontWeight: 500,
-                      textDecoration: "none",
-                      marginBottom: "4px",
-                      color: isActive ? "#60a5fa" : "#94a3b8",
-                      background: isActive ? "rgba(59,130,246,0.1)" : "transparent",
-                      transition: "all 0.2s ease",
-                    }}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              }
-            )}
+            {[
+              ...NAV_LINKS,
+              { label: "Contributors", href: "/contributors" },
+            ].map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  style={{
+                    display: "block",
+                    padding: "12px 16px",
+                    borderRadius: "10px",
+                    fontSize: "1rem",
+                    fontWeight: 500,
+                    textDecoration: "none",
+                    marginBottom: "4px",
+                    color: isActive
+                      ? "var(--accent-primary)"
+                      : "var(--text-secondary)",
+                    background: isActive
+                      ? "rgba(34, 85, 153,0.1)"
+                      : "transparent",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+            <div style={{ padding: "12px 16px" }}>
+              <ThemeToggle />
+            </div>
           </div>
         )}
       </nav>

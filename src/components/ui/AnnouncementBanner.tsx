@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import type { Announcement } from "@/lib/types";
 import Modal from "./Modal";
+import { Icon } from "./Icons";
 
 export default function AnnouncementPopup() {
   const [announcement, setAnnouncement] = useState<Announcement | null>(null);
@@ -11,15 +12,17 @@ export default function AnnouncementPopup() {
   useEffect(() => {
     // Check if user has already seen and dismissed an announcement in this session
     const hasSeen = sessionStorage.getItem("announcement_seen");
-    
+
     fetch("/api/announcements")
       .then((res) => res.json())
       .then((data) => {
         // Find the first active announcement
-        const active = data.find((a: Announcement) => 
-          (a.active || "").toString().toLowerCase() === "true" || a.active === true
+        const active = data.find(
+          (a: Announcement) =>
+            (a.active || "").toString().toLowerCase() === "true" ||
+            a.active === true,
         );
-        
+
         if (active && !hasSeen) {
           setAnnouncement(active);
           // Show popup after a short delay for better UX
@@ -41,14 +44,30 @@ export default function AnnouncementPopup() {
   return (
     <Modal isOpen={isOpen} onClose={handleClose} maxWidth="500px">
       <div style={{ padding: "2.5rem 2rem", textAlign: "center" }}>
-        <div style={{ fontSize: "4rem", marginBottom: "1.5rem" }}>📢</div>
-        <h2 style={{ fontSize: "1.8rem", color: "#f1f5f9", marginBottom: "1rem", fontWeight: 800 }}>
+        <div className="icon-tile" style={{ margin: "0 auto 1.5rem" }}>
+          <Icon name="megaphone" size={28} />
+        </div>
+        <h2
+          style={{
+            fontSize: "1.8rem",
+            color: "var(--text-primary)",
+            marginBottom: "1rem",
+            fontWeight: 800,
+          }}
+        >
           {announcement.title}
         </h2>
-        <p style={{ color: "#cbd5e1", fontSize: "1.1rem", lineHeight: 1.6, marginBottom: "2.5rem" }}>
+        <p
+          style={{
+            color: "var(--text-secondary)",
+            fontSize: "1.1rem",
+            lineHeight: 1.6,
+            marginBottom: "2.5rem",
+          }}
+        >
           {announcement.content}
         </p>
-        <button 
+        <button
           onClick={handleClose}
           className="btn-primary"
           style={{ width: "100%", padding: "12px", justifyContent: "center" }}

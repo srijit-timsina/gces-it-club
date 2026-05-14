@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SITE_CONFIG, NAV_LINKS } from "@/lib/constants";
+import { Icon } from "@/components/ui/Icons";
 
 const socialIcons: Record<string, string> = {
   github: `<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>`,
@@ -18,8 +19,8 @@ export default function Footer() {
   return (
     <footer
       style={{
-        background: "#080c18",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
+        background: "var(--footer-bg)",
+        borderTop: "1px solid var(--border)",
         padding: "3rem 0 1.5rem",
       }}
     >
@@ -41,7 +42,14 @@ export default function Footer() {
         >
           {/* Brand */}
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "1rem" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                marginBottom: "1rem",
+              }}
+            >
               <div
                 style={{
                   width: 36,
@@ -55,15 +63,33 @@ export default function Footer() {
                   padding: "2px",
                 }}
               >
-                <Image src="/logo/logo.png" alt="GCES Logo" fill style={{ objectFit: "contain", borderRadius: "50%" }} />
+                <Image
+                  src="/logo/logo.png"
+                  alt="GCES Logo"
+                  fill
+                  style={{ objectFit: "contain", borderRadius: "50%" }}
+                />
               </div>
               <div>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, color: "#f1f5f9" }}>
+                <div
+                  style={{
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontWeight: 700,
+                    color: "var(--text-primary)",
+                  }}
+                >
                   GCES IT Club
                 </div>
               </div>
             </div>
-            <p style={{ color: "#64748b", fontSize: "0.875rem", lineHeight: 1.7, marginBottom: "1rem" }}>
+            <p
+              style={{
+                color: "var(--text-muted)",
+                fontSize: "0.875rem",
+                lineHeight: 1.7,
+                marginBottom: "1rem",
+              }}
+            >
               {SITE_CONFIG.description}
             </p>
             {/* Social icons */}
@@ -79,28 +105,30 @@ export default function Footer() {
                     width: 36,
                     height: 36,
                     borderRadius: "8px",
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    background: "var(--control-bg)",
+                    border: "1px solid var(--control-border)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "#94a3b8",
+                    color: "var(--text-secondary)",
                     textDecoration: "none",
                     transition: "all 0.2s ease",
                   }}
                   onMouseEnter={(e) => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.background = "rgba(59,130,246,0.15)";
-                    el.style.borderColor = "rgba(59,130,246,0.4)";
-                    el.style.color = "#60a5fa";
+                    el.style.background = "rgba(34, 85, 153,0.15)";
+                    el.style.borderColor = "rgba(34, 85, 153,0.4)";
+                    el.style.color = "var(--accent-primary)";
                   }}
                   onMouseLeave={(e) => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.background = "rgba(255,255,255,0.05)";
-                    el.style.borderColor = "rgba(255,255,255,0.08)";
-                    el.style.color = "#94a3b8";
+                    el.style.background = "var(--control-bg)";
+                    el.style.borderColor = "var(--control-border)";
+                    el.style.color = "var(--text-secondary)";
                   }}
-                  dangerouslySetInnerHTML={{ __html: socialIcons[platform] || "" }}
+                  dangerouslySetInnerHTML={{
+                    __html: socialIcons[platform] || "",
+                  }}
                 />
               ))}
             </div>
@@ -108,26 +136,57 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 style={{ color: "#f1f5f9", fontWeight: 700, fontSize: "0.95rem", marginBottom: "1rem", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+            <h3
+              style={{
+                color: "var(--text-primary)",
+                fontWeight: 700,
+                fontSize: "0.95rem",
+                marginBottom: "1rem",
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+              }}
+            >
               Quick Links
             </h3>
-            <nav style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <nav
+              style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+            >
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  style={{ color: "#64748b", fontSize: "0.875rem", textDecoration: "none", transition: "color 0.2s ease" }}
-                  onMouseEnter={(e) => { (e.target as HTMLElement).style.color = "#60a5fa"; }}
-                  onMouseLeave={(e) => { (e.target as HTMLElement).style.color = "#64748b"; }}
+                  style={{
+                    color: "var(--text-muted)",
+                    fontSize: "0.875rem",
+                    textDecoration: "none",
+                    transition: "color 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.target as HTMLElement).style.color =
+                      "var(--accent-primary)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.target as HTMLElement).style.color = "var(--text-muted)";
+                  }}
                 >
                   {link.label}
                 </Link>
               ))}
               <Link
                 href="/contributors"
-                style={{ color: "#64748b", fontSize: "0.875rem", textDecoration: "none", transition: "color 0.2s ease" }}
-                onMouseEnter={(e) => { (e.target as HTMLElement).style.color = "#60a5fa"; }}
-                onMouseLeave={(e) => { (e.target as HTMLElement).style.color = "#64748b"; }}
+                style={{
+                  color: "var(--text-muted)",
+                  fontSize: "0.875rem",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLElement).style.color =
+                    "var(--accent-primary)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLElement).style.color = "var(--text-muted)";
+                }}
               >
                 Contributors
               </Link>
@@ -136,23 +195,55 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 style={{ color: "#f1f5f9", fontWeight: 700, fontSize: "0.95rem", marginBottom: "1rem", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+            <h3
+              style={{
+                color: "var(--text-primary)",
+                fontWeight: 700,
+                fontSize: "0.95rem",
+                marginBottom: "1rem",
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+              }}
+            >
               Contact
             </h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+            >
               {[
-                { icon: "✉️", label: SITE_CONFIG.email, href: `mailto:${SITE_CONFIG.email}` },
-                { icon: "📞", label: SITE_CONFIG.phone, href: `tel:${SITE_CONFIG.phone}` },
-                { icon: "📍", label: SITE_CONFIG.address, href: "#" },
+                {
+                  icon: "mail",
+                  label: SITE_CONFIG.email,
+                  href: `mailto:${SITE_CONFIG.email}`,
+                },
+                {
+                  icon: "phone",
+                  label: SITE_CONFIG.phone,
+                  href: `tel:${SITE_CONFIG.phone}`,
+                },
+                { icon: "map-pin", label: SITE_CONFIG.address, href: "#" },
               ].map(({ icon, label, href }) => (
                 <a
                   key={label}
                   href={href}
-                  style={{ display: "flex", gap: "8px", color: "#64748b", fontSize: "0.875rem", textDecoration: "none", transition: "color 0.2s ease" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#94a3b8"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#64748b"; }}
+                  style={{
+                    display: "flex",
+                    gap: "8px",
+                    color: "var(--text-muted)",
+                    fontSize: "0.875rem",
+                    textDecoration: "none",
+                    transition: "color 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.color =
+                      "var(--text-secondary)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.color =
+                      "var(--text-muted)";
+                  }}
                 >
-                  <span>{icon}</span>
+                  <Icon name={icon} size={16} />
                   <span style={{ lineHeight: 1.5 }}>{label}</span>
                 </a>
               ))}
@@ -161,10 +252,26 @@ export default function Footer() {
 
           {/* Join CTA */}
           <div>
-            <h3 style={{ color: "#f1f5f9", fontWeight: 700, fontSize: "0.95rem", marginBottom: "1rem", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+            <h3
+              style={{
+                color: "var(--text-primary)",
+                fontWeight: 700,
+                fontSize: "0.95rem",
+                marginBottom: "1rem",
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+              }}
+            >
               Join Us
             </h3>
-            <p style={{ color: "#64748b", fontSize: "0.875rem", lineHeight: 1.7, marginBottom: "1rem" }}>
+            <p
+              style={{
+                color: "var(--text-muted)",
+                fontSize: "0.875rem",
+                lineHeight: 1.7,
+                marginBottom: "1rem",
+              }}
+            >
               Be part of a thriving tech community. Join GCES IT Club today!
             </p>
             <Link
@@ -172,19 +279,32 @@ export default function Footer() {
               className="btn-primary"
               style={{ fontSize: "0.875rem", padding: "9px 20px" }}
             >
-              Become a Member →
+              Become a Member <Icon name="arrow-right" size={16} />
             </Link>
           </div>
         </div>
 
         {/* Divider */}
-        <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "1.5rem", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "0.5rem" }}>
-          <p style={{ color: "#475569", fontSize: "0.8rem" }}>
+        <div
+          style={{
+            borderTop: "1px solid var(--border)",
+            paddingTop: "1.5rem",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: "0.5rem",
+          }}
+        >
+          <p style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>
             © {year} GCES IT Club. All rights reserved.
           </p>
-          <p style={{ color: "#475569", fontSize: "0.8rem" }}>
-            Built with ❤️ by{" "}
-            <Link href="/contributors" style={{ color: "#60a5fa", textDecoration: "none" }}>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>
+            Built by{" "}
+            <Link
+              href="/contributors"
+              style={{ color: "var(--accent-primary)", textDecoration: "none" }}
+            >
               GCES IT Club Contributors
             </Link>
           </p>

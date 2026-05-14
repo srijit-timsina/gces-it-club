@@ -20,12 +20,12 @@ export default function FilterButtons({ options, active, onChange }: FilterButto
               padding: "7px 18px",
               borderRadius: "999px",
               border: isActive
-                ? "1px solid rgba(59,130,246,0.5)"
-                : "1px solid rgba(255,255,255,0.08)",
+                ? "1px solid var(--border-accent)"
+                : "1px solid var(--control-border)",
               background: isActive
-                ? "rgba(59,130,246,0.15)"
-                : "rgba(255,255,255,0.04)",
-              color: isActive ? "#60a5fa" : "#94a3b8",
+                ? "var(--accent-soft)"
+                : "var(--control-bg)",
+              color: isActive ? "var(--accent-primary)" : "var(--text-secondary)",
               fontSize: "0.85rem",
               fontWeight: isActive ? 600 : 400,
               cursor: "pointer",
@@ -33,14 +33,14 @@ export default function FilterButtons({ options, active, onChange }: FilterButto
             }}
             onMouseEnter={(e) => {
               if (!isActive) {
-                (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.08)";
-                (e.currentTarget as HTMLElement).style.color = "#f1f5f9";
+                (e.currentTarget as HTMLElement).style.background = "var(--control-bg-hover)";
+                (e.currentTarget as HTMLElement).style.color = "var(--text-primary)";
               }
             }}
             onMouseLeave={(e) => {
               if (!isActive) {
-                (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
-                (e.currentTarget as HTMLElement).style.color = "#94a3b8";
+                (e.currentTarget as HTMLElement).style.background = "var(--control-bg)";
+                (e.currentTarget as HTMLElement).style.color = "var(--text-secondary)";
               }
             }}
           >

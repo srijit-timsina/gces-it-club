@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import type { GalleryImage } from "@/lib/types";
+import { Icon } from "./Icons";
 
 export default function ImageSlider({ images }: { images: GalleryImage[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,15 +47,15 @@ export default function ImageSlider({ images }: { images: GalleryImage[] }) {
             />
           ) : (
             <div style={{ width: "100%", height: "100%", background: "var(--bg-secondary)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "4rem", opacity: 0.2 }}>
-              📷
+              <Icon name="image" size={56} />
             </div>
           )}
-          {/* Overlay gradient for text readability */}
+          {/* Overlay for text readability */}
           <div
             style={{
               position: "absolute",
               inset: 0,
-              background: "linear-gradient(to right, rgba(10,14,26,0.9) 0%, rgba(10,14,26,0.7) 40%, rgba(10,14,26,0.4) 100%)",
+              background: "var(--hero-overlay)",
             }}
           />
         </div>

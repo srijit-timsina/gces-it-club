@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { Icon } from "./Icons";
 
 interface SearchBarProps {
   placeholder?: string;
@@ -28,12 +29,12 @@ export default function SearchBar({ placeholder = "Search...", onSearch, debounc
           left: "14px",
           top: "50%",
           transform: "translateY(-50%)",
-          color: "#64748b",
+          color: "var(--text-muted)",
           fontSize: "1rem",
           pointerEvents: "none",
         }}
       >
-        🔍
+        <Icon name="search" size={17} />
       </span>
       <input
         id="search-input"
@@ -44,16 +45,22 @@ export default function SearchBar({ placeholder = "Search...", onSearch, debounc
         style={{
           width: "100%",
           padding: "11px 14px 11px 42px",
-          background: "#131928",
-          border: "1px solid rgba(255,255,255,0.08)",
+          background: "var(--control-bg)",
+          border: "1px solid var(--control-border)",
           borderRadius: "12px",
-          color: "#f1f5f9",
+          color: "var(--text-primary)",
           fontSize: "0.9rem",
           outline: "none",
-          transition: "border-color 0.2s ease",
+          transition: "border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease",
         }}
-        onFocus={(e) => { e.target.style.borderColor = "rgba(59,130,246,0.5)"; }}
-        onBlur={(e) => { e.target.style.borderColor = "rgba(255,255,255,0.08)"; }}
+        onFocus={(e) => {
+          e.target.style.borderColor = "var(--accent-primary)";
+          e.target.style.boxShadow = "0 0 0 3px var(--accent-soft)";
+        }}
+        onBlur={(e) => {
+          e.target.style.borderColor = "var(--control-border)";
+          e.target.style.boxShadow = "none";
+        }}
       />
       {value && (
         <button
@@ -66,13 +73,13 @@ export default function SearchBar({ placeholder = "Search...", onSearch, debounc
             transform: "translateY(-50%)",
             background: "none",
             border: "none",
-            color: "#64748b",
+            color: "var(--text-muted)",
             cursor: "pointer",
             fontSize: "0.9rem",
             padding: "2px",
           }}
         >
-          ✕
+          <Icon name="x" size={16} />
         </button>
       )}
     </div>

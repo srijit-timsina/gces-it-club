@@ -1,4 +1,5 @@
 import type { Resource } from "@/lib/types";
+import { Icon } from "./Icons";
 
 export default function ResourceCard({ resource }: { resource: Resource }) {
   const getTagBadge = (tag: string) => {
@@ -13,11 +14,11 @@ export default function ResourceCard({ resource }: { resource: Resource }) {
 
   const getIcon = (type: string) => {
     switch ((type || "").toLowerCase()) {
-      case 'tutorial': return '📺';
-      case 'docs': return '📚';
-      case 'code': return '💻';
-      case 'github': return '🐙';
-      default: return '🔗';
+      case 'tutorial': return 'video';
+      case 'docs': return 'book';
+      case 'code': return 'code';
+      case 'github': return 'github';
+      default: return 'link';
     }
   };
 
@@ -28,7 +29,7 @@ export default function ResourceCard({ resource }: { resource: Resource }) {
       href={resource.link}
       target="_blank"
       rel="noopener noreferrer"
-      className="glass-card"
+      className="glass-card interactive-card"
       style={{
         padding: "1.5rem",
         textDecoration: "none",
@@ -39,12 +40,12 @@ export default function ResourceCard({ resource }: { resource: Resource }) {
       }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-        (e.currentTarget as HTMLElement).style.borderColor = "rgba(59,130,246,0.3)";
-        (e.currentTarget as HTMLElement).style.boxShadow = "0 10px 30px rgba(0,0,0,0.3)";
+        (e.currentTarget as HTMLElement).style.borderColor = "var(--border-accent)";
+        (e.currentTarget as HTMLElement).style.boxShadow = "0 14px 28px rgba(34, 85, 153, 0.16)";
       }}
       onMouseLeave={(e) => {
         (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-        (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.06)";
+        (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
         (e.currentTarget as HTMLElement).style.boxShadow = "none";
       }}
     >
@@ -54,29 +55,29 @@ export default function ResourceCard({ resource }: { resource: Resource }) {
             width: 48,
             height: 48,
             borderRadius: "12px",
-            background: "rgba(255,255,255,0.05)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            background: "var(--accent-soft)",
+            border: "1px solid var(--border-accent)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "1.5rem",
             flexShrink: 0,
+            color: "var(--accent-primary)",
           }}
         >
-          {getIcon(resource.type)}
+          <Icon name={getIcon(resource.type)} size={24} />
         </div>
         <div>
-          <h3 style={{ fontSize: "1.1rem", color: "#f1f5f9", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "8px" }}>
+          <h3 style={{ fontSize: "1.1rem", color: "var(--text-primary)", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "8px" }}>
             {resource.title}
-            <span style={{ fontSize: "0.8rem", opacity: 0.5 }}>↗</span>
+            <Icon name="external-link" size={14} style={{ opacity: 0.5 }} />
           </h3>
-          <span style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em", color: "#94a3b8" }}>
+          <span style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-secondary)" }}>
             {resource.type}
           </span>
         </div>
       </div>
 
-      <p style={{ color: "#cbd5e1", fontSize: "0.9rem", lineHeight: 1.6, flexGrow: 1, marginBottom: "1.5rem" }}>
+      <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", lineHeight: 1.6, flexGrow: 1, marginBottom: "1.5rem" }}>
         {resource.description}
       </p>
 

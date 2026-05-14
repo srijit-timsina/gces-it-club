@@ -3,6 +3,8 @@
 import { SITE_CONFIG } from "@/lib/constants";
 import ImageSlider from "@/components/ui/ImageSlider";
 import AnnouncementPopup from "@/components/ui/AnnouncementBanner";
+import { Icon } from "@/components/ui/Icons";
+import CountUp from "@/components/ui/CountUp";
 import type { GalleryImage } from "@/lib/types";
 
 export default function Home() {
@@ -22,10 +24,7 @@ export default function Home() {
           {heroImages.length > 0 ? (
             <ImageSlider images={heroImages} />
           ) : (
-            <>
-              <div style={{ position: "absolute", top: "20%", left: "10%", width: "40vw", height: "40vw", background: "radial-gradient(circle, rgba(37,99,235,0.15) 0%, rgba(0,0,0,0) 70%)", borderRadius: "50%", filter: "blur(40px)" }}></div>
-              <div style={{ position: "absolute", bottom: "10%", right: "10%", width: "50vw", height: "50vw", background: "radial-gradient(circle, rgba(220,38,38,0.1) 0%, rgba(0,0,0,0) 70%)", borderRadius: "50%", filter: "blur(60px)" }}></div>
-            </>
+            <div style={{ position: "absolute", inset: 0, background: "rgba(10,14,26,0.92)" }} />
           )}
         </div>
         
@@ -34,10 +33,10 @@ export default function Home() {
             {SITE_CONFIG.name}
           </div>
           <h1 className="animate-fadeInUp delay-100" style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", fontWeight: 900, marginBottom: "1.5rem", letterSpacing: "-0.02em" }}>
-            <span style={{ display: "block", color: "#f1f5f9" }}>Welcome to the</span>
-            <span className="gradient-text">Future of Tech</span>
+            <span style={{ display: "block", color: "#f8fafc" }}>Welcome to the</span>
+            <span className="accent-text">Future of Tech</span>
           </h1>
-          <p className="animate-fadeInUp delay-200" style={{ fontSize: "clamp(1rem, 2vw, 1.25rem)", color: "#94a3b8", maxWidth: "600px", margin: "0 auto 2.5rem", lineHeight: 1.8 }}>
+          <p className="animate-fadeInUp delay-200" style={{ fontSize: "clamp(1rem, 2vw, 1.25rem)", color: "#dbeafe", maxWidth: "600px", margin: "0 auto 2.5rem", lineHeight: 1.8 }}>
             {SITE_CONFIG.tagline} We are a community of passionate developers, designers, and innovators at {SITE_CONFIG.fullName}.
           </p>
           <div className="animate-fadeInUp delay-300" style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
@@ -52,18 +51,23 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section style={{ padding: "4rem 0", background: "rgba(255,255,255,0.02)", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      <section style={{ padding: "4rem 0", background: "var(--subtle-section)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 1.5rem" }}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "2rem", textAlign: "center" }}>
             {[
-              { label: "Active Members", value: `${SITE_CONFIG.stats.members}+` },
-              { label: "Events Conducted", value: `${SITE_CONFIG.stats.events}+` },
-              { label: "Workshops", value: `${SITE_CONFIG.stats.workshops}+` },
-              { label: "Projects Built", value: `${SITE_CONFIG.stats.projects}+` },
+              { label: "Active Members", value: SITE_CONFIG.stats.members, icon: "users" },
+              { label: "Events Conducted", value: SITE_CONFIG.stats.events, icon: "calendar" },
+              { label: "Workshops", value: SITE_CONFIG.stats.workshops, icon: "code" },
+              { label: "Projects Built", value: SITE_CONFIG.stats.projects, icon: "github" },
             ].map((stat, i) => (
-              <div key={i}>
-                <div style={{ fontSize: "3rem", fontWeight: 800, color: "#f1f5f9", marginBottom: "0.5rem" }}>{stat.value}</div>
-                <div style={{ color: "#60a5fa", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "0.9rem" }}>{stat.label}</div>
+              <div key={i} className="animate-count" style={{ animationDelay: `${i * 0.12}s` }}>
+                <div className="icon-tile" style={{ marginBottom: "1rem" }}>
+                  <Icon name={stat.icon} size={24} />
+                </div>
+                <div style={{ fontSize: "3rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "0.5rem" }}>
+                  <CountUp value={stat.value} suffix="+" />
+                </div>
+                <div style={{ color: "var(--accent-primary)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "0.9rem" }}>{stat.label}</div>
               </div>
             ))}
           </div>
@@ -80,14 +84,16 @@ export default function Home() {
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "2rem" }}>
             {[
-              { title: "Hackathons & Competitions", desc: "Test your skills in high-energy coding competitions.", icon: "🏆", link: "/events" },
-              { title: "Skill Workshops", desc: "Learn cutting-edge technologies from experts and peers.", icon: "💻", link: "/events" },
-              { title: "Resource Library", desc: "Access our curated collection of learning materials.", icon: "📚", link: "/resources" },
+              { title: "Hackathons & Competitions", desc: "Test your skills in high-energy coding competitions.", icon: "award", link: "/events" },
+              { title: "Skill Workshops", desc: "Learn cutting-edge technologies from experts and peers.", icon: "code", link: "/events" },
+              { title: "Resource Library", desc: "Access our curated collection of learning materials.", icon: "book", link: "/resources" },
             ].map((item, i) => (
-              <a key={i} href={item.link} className="glass-card" style={{ padding: "2.5rem", textDecoration: "none", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", transition: "all 0.3s ease" }} onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-10px)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(59,130,246,0.5)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.06)"; }}>
-                <div style={{ fontSize: "3.5rem", marginBottom: "1.5rem" }}>{item.icon}</div>
-                <h3 style={{ fontSize: "1.5rem", color: "#f1f5f9", marginBottom: "1rem" }}>{item.title}</h3>
-                <p style={{ color: "#94a3b8", lineHeight: 1.6 }}>{item.desc}</p>
+              <a key={i} href={item.link} className="glass-card interactive-card" style={{ padding: "2.5rem", textDecoration: "none", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+                <div className="icon-tile" style={{ marginBottom: "1.5rem" }}>
+                  <Icon name={item.icon} size={28} />
+                </div>
+                <h3 style={{ fontSize: "1.5rem", color: "var(--text-primary)", marginBottom: "1rem" }}>{item.title}</h3>
+                <p style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>{item.desc}</p>
               </a>
             ))}
           </div>

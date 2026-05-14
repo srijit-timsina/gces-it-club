@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import ContributorCard from "@/components/ui/ContributorCard";
 import { GridSkeleton } from "@/components/ui/Skeleton";
+import { Icon } from "@/components/ui/Icons";
 import type { Contributor } from "@/lib/types";
 
 export default function ContributorsPage() {
@@ -25,12 +26,12 @@ export default function ContributorsPage() {
 
   return (
     <div style={{ paddingTop: "80px", minHeight: "100vh" }}>
-      <div style={{ background: "linear-gradient(to bottom, rgba(59,130,246,0.1), transparent)", padding: "4rem 0 2rem", borderBottom: "1px solid rgba(255,255,255,0.05)", marginBottom: "3rem" }}>
+      <div style={{ background: "var(--subtle-section)", padding: "4rem 0 2rem", borderBottom: "1px solid var(--border)", marginBottom: "3rem" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 1.5rem", textAlign: "center" }}>
-          <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 800, color: "#f1f5f9", marginBottom: "1rem" }}>
-            Project <span className="gradient-text">Contributors</span>
+          <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 800, color: "var(--text-primary)", marginBottom: "1rem" }}>
+            Project <span className="accent-text">Contributors</span>
           </h1>
-          <p style={{ color: "#94a3b8", fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
             The amazing people who designed, built, and maintained this website.
           </p>
         </div>
@@ -46,16 +47,18 @@ export default function ContributorsPage() {
             ))}
           </div>
         ) : (
-          <div style={{ textAlign: "center", padding: "4rem 0", color: "#64748b" }}>
-            <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>💻</div>
-            <h3 style={{ fontSize: "1.2rem", color: "#f1f5f9", marginBottom: "0.5rem" }}>No contributors found</h3>
+          <div style={{ textAlign: "center", padding: "4rem 0", color: "var(--text-muted)" }}>
+            <div className="icon-tile" style={{ margin: "0 auto 1rem" }}>
+              <Icon name="code" size={28} />
+            </div>
+            <h3 style={{ fontSize: "1.2rem", color: "var(--text-primary)", marginBottom: "0.5rem" }}>No contributors found</h3>
           </div>
         )}
 
         <div className="glass-card" style={{ marginTop: "5rem", padding: "3rem", textAlign: "center", borderRadius: "24px" }}>
-          <h2 style={{ fontSize: "1.8rem", color: "#f1f5f9", marginBottom: "1rem" }}>Want to contribute?</h2>
-          <p style={{ color: "#94a3b8", fontSize: "1.1rem", marginBottom: "2rem", maxWidth: "600px", margin: "0 auto 2rem" }}>
-            This website is open-source. Whether it's a bug fix, a new feature, or improving documentation, all contributions are welcome!
+          <h2 style={{ fontSize: "1.8rem", color: "var(--text-primary)", marginBottom: "1rem" }}>Want to contribute?</h2>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", marginBottom: "2rem", maxWidth: "600px", margin: "0 auto 2rem" }}>
+            This website is open-source. Whether it&apos;s a bug fix, a new feature, or improving documentation, all contributions are welcome!
           </p>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <a href="https://github.com/gces-it-club/website" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ display: "flex", alignItems: "center", gap: "8px" }}>

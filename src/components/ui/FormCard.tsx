@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { FormEntry } from "@/lib/types";
 import Modal from "./Modal";
+import { Icon } from "./Icons";
 
 export default function FormCard({ form }: { form: FormEntry }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,22 +30,22 @@ export default function FormCard({ form }: { form: FormEntry }) {
               width: 48,
               height: 48,
               borderRadius: "12px",
-              background: "linear-gradient(135deg, rgba(59,130,246,0.2), rgba(139,92,246,0.2))",
-              border: "1px solid rgba(139,92,246,0.3)",
+              background: "var(--accent-soft)",
+              border: "1px solid rgba(34, 85, 153,0.3)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: "1.5rem",
             }}
           >
-            📋
+            <Icon name="file-text" size={24} />
           </div>
-          <h3 style={{ fontSize: "1.25rem", color: "#f1f5f9", fontWeight: 700 }}>
+          <h3 style={{ fontSize: "1.25rem", color: "var(--text-primary)", fontWeight: 700 }}>
             {form.form_name}
           </h3>
         </div>
 
-        <p style={{ color: "#cbd5e1", lineHeight: 1.6, flexGrow: 1, marginBottom: "1.5rem" }}>
+        <p style={{ color: "var(--text-secondary)", lineHeight: 1.6, flexGrow: 1, marginBottom: "1.5rem" }}>
           {form.description}
         </p>
 
@@ -65,7 +66,7 @@ export default function FormCard({ form }: { form: FormEntry }) {
               className="btn-primary"
               style={{ flex: 1, justifyContent: "center" }}
             >
-              Open Form ↗
+              Open Form <Icon name="external-link" size={16} />
             </a>
           )}
         </div>
@@ -73,7 +74,7 @@ export default function FormCard({ form }: { form: FormEntry }) {
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} maxWidth="800px">
         <div style={{ padding: "1rem", height: "80vh", display: "flex", flexDirection: "column" }}>
-          <h2 style={{ fontSize: "1.5rem", color: "#f1f5f9", marginBottom: "1rem", padding: "0 1rem" }}>{form.form_name}</h2>
+          <h2 style={{ fontSize: "1.5rem", color: "var(--text-primary)", marginBottom: "1rem", padding: "0 1rem" }}>{form.form_name}</h2>
           <div style={{ flexGrow: 1, background: "#fff", borderRadius: "8px", overflow: "hidden" }}>
             {embedUrl && (
               <iframe

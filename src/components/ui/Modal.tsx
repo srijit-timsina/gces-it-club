@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { Icon } from "./Icons";
 
 interface ModalProps {
   isOpen: boolean;
@@ -35,9 +36,9 @@ export default function Modal({ isOpen, onClose, children, maxWidth = "600px" }:
     >
       <div
         style={{
-          background: "#131928",
-          border: "1px solid rgba(255,255,255,0.08)",
-          borderRadius: "20px",
+          background: "var(--bg-card)",
+          border: "1px solid var(--border)",
+          borderRadius: "8px",
           width: "100%",
           maxWidth,
           maxHeight: "90vh",
@@ -56,10 +57,10 @@ export default function Modal({ isOpen, onClose, children, maxWidth = "600px" }:
             width: 32,
             height: 32,
             borderRadius: "8px",
-            background: "rgba(255,255,255,0.08)",
-            border: "none",
+            background: "var(--control-bg)",
+            border: "1px solid var(--control-border)",
             cursor: "pointer",
-            color: "#94a3b8",
+            color: "var(--text-secondary)",
             fontSize: "1rem",
             display: "flex",
             alignItems: "center",
@@ -68,15 +69,17 @@ export default function Modal({ isOpen, onClose, children, maxWidth = "600px" }:
             transition: "all 0.2s ease",
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.background = "rgba(244,63,94,0.2)";
+            (e.currentTarget as HTMLElement).style.background = "var(--danger-bg)";
             (e.currentTarget as HTMLElement).style.color = "#fb7185";
+            (e.currentTarget as HTMLElement).style.borderColor = "var(--danger-border)";
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.08)";
-            (e.currentTarget as HTMLElement).style.color = "#94a3b8";
+            (e.currentTarget as HTMLElement).style.background = "var(--control-bg)";
+            (e.currentTarget as HTMLElement).style.color = "var(--text-secondary)";
+            (e.currentTarget as HTMLElement).style.borderColor = "var(--control-border)";
           }}
         >
-          ✕
+          <Icon name="x" size={18} />
         </button>
         {children}
       </div>

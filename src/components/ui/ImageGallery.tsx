@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import type { GalleryImage } from "@/lib/types";
+import { Icon } from "./Icons";
 
 export default function ImageGallery({ images }: { images: GalleryImage[] }) {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
@@ -72,8 +73,8 @@ export default function ImageGallery({ images }: { images: GalleryImage[] }) {
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             ) : (
-              <div style={{ width: "100%", height: "100%", background: "#1e293b", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontSize: "3rem", opacity: 0.2 }}>📷</span>
+              <div style={{ width: "100%", height: "100%", background: "var(--image-placeholder-bg)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Icon name="image" size={44} style={{ opacity: 0.25, color: "var(--accent-primary)" }} />
               </div>
             )}
             
@@ -82,7 +83,7 @@ export default function ImageGallery({ images }: { images: GalleryImage[] }) {
               style={{
                 position: "absolute",
                 inset: 0,
-                background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)",
+                background: "rgba(0,0,0,0.62)",
                 opacity: 0,
                 transition: "opacity 0.3s ease",
                 display: "flex",
@@ -118,20 +119,24 @@ export default function ImageGallery({ images }: { images: GalleryImage[] }) {
               onClick={() => setSelectedImage(null)}
               style={{ background: "none", border: "none", color: "#fff", fontSize: "1.5rem", cursor: "pointer" }}
             >
-              ✕
+              <Icon name="x" size={24} />
             </button>
           </div>
 
           {/* Main Image */}
           <div style={{ flexGrow: 1, position: "relative", display: "flex", alignItems: "center", justifyContent: "center", padding: "0 4rem" }}>
             {selectedImage.image_url ? (
-              <img
-                src={selectedImage.image_url}
-                alt={selectedImage.title}
-                style={{ maxHeight: "80vh", maxWidth: "100%", objectFit: "contain" }}
-              />
+              <div style={{ position: "relative", width: "100%", height: "80vh" }}>
+                <Image
+                  src={selectedImage.image_url}
+                  alt={selectedImage.title}
+                  fill
+                  style={{ objectFit: "contain" }}
+                  sizes="100vw"
+                />
+              </div>
             ) : (
-              <div style={{ fontSize: "5rem" }}>📷</div>
+              <Icon name="image" size={72} />
             )}
 
             {/* Navigation Arrows */}
@@ -157,7 +162,7 @@ export default function ImageGallery({ images }: { images: GalleryImage[] }) {
                 fontSize: "1.5rem",
               }}
             >
-              ←
+              <Icon name="arrow-left" size={24} />
             </button>
             <button
               onClick={(e) => {
@@ -181,7 +186,7 @@ export default function ImageGallery({ images }: { images: GalleryImage[] }) {
                 fontSize: "1.5rem",
               }}
             >
-              →
+              <Icon name="arrow-right" size={24} />
             </button>
           </div>
 

@@ -2,9 +2,9 @@ export function CardSkeleton() {
   return (
     <div
       style={{
-        background: "#131928",
-        border: "1px solid rgba(255,255,255,0.06)",
-        borderRadius: "16px",
+        background: "var(--bg-card)",
+        border: "1px solid var(--border)",
+        borderRadius: "8px",
         overflow: "hidden",
       }}
     >
@@ -39,9 +39,9 @@ export function TeamCardSkeleton() {
   return (
     <div
       style={{
-        background: "#131928",
-        border: "1px solid rgba(255,255,255,0.06)",
-        borderRadius: "16px",
+        background: "var(--bg-card)",
+        border: "1px solid var(--border)",
+        borderRadius: "8px",
         padding: "1.5rem",
         display: "flex",
         flexDirection: "column",

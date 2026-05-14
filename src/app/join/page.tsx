@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import FormCard from "@/components/ui/FormCard";
 import { GridSkeleton } from "@/components/ui/Skeleton";
+import { Icon } from "@/components/ui/Icons";
 import type { FormEntry } from "@/lib/types";
 
 export default function JoinPage() {
@@ -26,12 +27,12 @@ export default function JoinPage() {
 
   return (
     <div style={{ paddingTop: "80px", minHeight: "100vh" }}>
-      <div style={{ background: "linear-gradient(to bottom, rgba(245,158,11,0.1), transparent)", padding: "4rem 0 2rem", borderBottom: "1px solid rgba(255,255,255,0.05)", marginBottom: "3rem" }}>
+      <div style={{ background: "var(--subtle-section)", padding: "4rem 0 2rem", borderBottom: "1px solid var(--border)", marginBottom: "3rem" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 1.5rem", textAlign: "center" }}>
-          <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 800, color: "#f1f5f9", marginBottom: "1rem" }}>
-            Join <span className="gradient-text">Us</span>
+          <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 800, color: "var(--text-primary)", marginBottom: "1rem" }}>
+            Join <span className="accent-text">Us</span>
           </h1>
-          <p style={{ color: "#94a3b8", fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
             Register for memberships, events, or share your feedback with us.
           </p>
         </div>
@@ -47,15 +48,17 @@ export default function JoinPage() {
             ))}
           </div>
         ) : (
-          <div style={{ textAlign: "center", padding: "4rem 0", color: "#64748b" }}>
-            <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>📋</div>
-            <h3 style={{ fontSize: "1.2rem", color: "#f1f5f9", marginBottom: "0.5rem" }}>No active forms</h3>
+          <div style={{ textAlign: "center", padding: "4rem 0", color: "var(--text-muted)" }}>
+            <div className="icon-tile" style={{ margin: "0 auto 1rem" }}>
+              <Icon name="file-text" size={28} />
+            </div>
+            <h3 style={{ fontSize: "1.2rem", color: "var(--text-primary)", marginBottom: "0.5rem" }}>No active forms</h3>
             <p>There are currently no active registrations or forms.</p>
           </div>
         )}
 
         <div style={{ marginTop: "5rem", textAlign: "center" }}>
-          <h2 style={{ fontSize: "1.8rem", color: "#f1f5f9", marginBottom: "1.5rem" }}>Why Join the Club?</h2>
+          <h2 style={{ fontSize: "1.8rem", color: "var(--text-primary)", marginBottom: "1.5rem" }}>Why Join the Club?</h2>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "2rem", justifyContent: "center" }}>
             {[
               "Access to exclusive workshops",
@@ -63,8 +66,8 @@ export default function JoinPage() {
               "Mentorship opportunities",
               "Certificate of participation",
             ].map((benefit, i) => (
-              <div key={i} style={{ background: "rgba(255,255,255,0.05)", padding: "1rem 2rem", borderRadius: "99px", color: "#e2e8f0", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: "10px" }}>
-                <span style={{ color: "#10b981" }}>✓</span> {benefit}
+              <div key={i} style={{ background: "var(--chip-bg)", padding: "1rem 2rem", borderRadius: "99px", color: "var(--text-primary)", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: "10px" }}>
+                <Icon name="check" size={18} style={{ color: "#10b981" }} /> {benefit}
               </div>
             ))}
           </div>
