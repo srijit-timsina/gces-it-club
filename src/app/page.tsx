@@ -7,6 +7,7 @@ import { Icon } from "@/components/ui/Icons";
 import CountUp from "@/components/ui/CountUp";
 import FloatingCodeIcons from "@/components/ui/FloatingCodeIcons";
 import type { GalleryImage } from "@/lib/types";
+import Link from "next/link";
 
 export default function Home() {
   const heroImages: GalleryImage[] = [
@@ -43,12 +44,12 @@ export default function Home() {
             {SITE_CONFIG.tagline} We are a community of passionate developers, designers, and innovators at {SITE_CONFIG.fullName}.
           </p>
           <div className="animate-fadeInUp delay-300" style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <a href="/join" className="btn-primary" style={{ padding: "12px 32px", fontSize: "1rem" }}>
+            <Link href="/join" className="btn-primary" style={{ padding: "12px 32px", fontSize: "1rem" }}>
               Join the Club <Icon name="arrow-right" size={18} />
-            </a>
-            <a href="/events" className="btn-secondary" style={{ padding: "12px 32px", fontSize: "1rem", color: "#ffffff", borderColor: "rgba(255,255,255,0.32)", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(10px)" }}>
+            </Link>
+            <Link href="/events" className="btn-secondary" style={{ padding: "12px 32px", fontSize: "1rem", color: "#ffffff", borderColor: "rgba(255,255,255,0.32)", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(10px)" }}>
               <Icon name="calendar" size={18} /> Explore Events
-            </a>
+            </Link>
           </div>
         </div>
       </section>
