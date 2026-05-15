@@ -5,18 +5,18 @@ import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "GCES IT Club | Government College of Engineering",
+    default: "GCES IT Club | Gandaki College of Engineering and Science ",
     template: "%s | GCES IT Club",
   },
   description:
-    "Official website of the GCES IT Club — Government College of Engineering. Fostering innovation, learning, and collaboration through workshops, hackathons, and tech events.",
-  keywords: ["GCES", "IT Club", "engineering college", "hackathon", "coding", "workshops", "tech events"],
+    "Official website of the GCES IT Club —Gandaki College of Engineering and Science . Fostering innovation, learning, and collaboration through workshops, hackathons, and tech events.",
+  keywords: ["GCES","Gandaki College of Engineering and Science", "IT Club of Gandaki College of Engineering and Science", "engineering college of nepal ", "hackathon in nepal ", "coding in nepal ", "workshops in nepal ", "tech events in nepal "],
   authors: [{ name: "GCES IT Club" }],
   openGraph: {
     type: "website",
     siteName: "GCES IT Club",
-    title: "GCES IT Club | Government College of Engineering",
-    description: "Innovate. Code. Collaborate. — The official IT Club of Government College of Engineering.",
+    title: "GCES IT Club | Gandaki College of Engineering and Science",
+    description: "Innovate. Code. Collaborate. — The official IT Club of Gandaki College of Engineering and Science.",
   },
 };
 
