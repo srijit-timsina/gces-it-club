@@ -74,7 +74,7 @@ export default function EventCard({ event }: { event: Event }) {
 
           <div style={{ marginTop: "1.5rem" }}>
             <span style={{ color: "var(--accent-primary)", fontSize: "0.9rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "4px" }}>
-              Register Now ! <Icon name="arrow-right" size={15} />
+              View Details <Icon name="arrow-right" size={15} />
             </span>
           </div>
         </div>
