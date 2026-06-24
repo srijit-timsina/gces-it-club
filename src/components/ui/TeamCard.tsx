@@ -49,7 +49,7 @@ export default function TeamCard({ member }: { member: TeamMember }) {
             {member.image_url ? (
               <Image
                 src={member.image_url}
-                alt={member.name}
+                alt={""}
                 fill
                 style={{ objectFit: "cover" }}
               />
@@ -64,9 +64,17 @@ export default function TeamCard({ member }: { member: TeamMember }) {
                   fontSize: "2rem",
                 }}
               >
+                 <Image
+                src={`/team_members/${member.name.toLowerCase().replace(/\s/g, " ")}.jpg`}
+                alt={""}
+                fill
+                style={{ objectFit: "cover" }}
+              />
                 <Icon name="user" size={30} />
               </div>
-            )}
+            )
+            
+            }
           </div>
         </div>
 
@@ -124,27 +132,39 @@ export default function TeamCard({ member }: { member: TeamMember }) {
             }}
           >
             {member.image_url ? (
+              <>
               <Image
                 src={member.image_url}
-                alt={member?.name || ""}
+                alt={""}
                 fill
                 style={{ objectFit: "cover" }}
               />
+              <Icon name="user" size={30} />
+              </>
+              
             ) : (
               <div
                 style={{
                   width: "100%",
                   height: "100%",
-                  background: "var(--image-placeholder-bg)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "3rem",
+                  fontSize: "2rem",
                 }}
               >
-                <Icon name="user" size={44} />
+                
+                 <Image
+                src={`/team_members/${member.name.toLowerCase().replace(/\s/g, " ")}.jpg`}
+                alt={""}
+                fill
+                style={{ objectFit: "cover" }}
+              />
+                <Icon name="user" size={30} />
               </div>
-            )}
+            )
+            
+            }
           </div>
 
           <h2

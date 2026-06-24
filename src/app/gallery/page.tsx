@@ -14,7 +14,11 @@ export default function GalleryPage() {
     fetch("/api/gallery")
       .then((res) => res.json())
       .then((data) => {
-        const sorted = data.sort((a: GalleryImage, b: GalleryImage) => (Number(a.order) || 999) - (Number(b.order) || 999));
+        const sorted = data.sort((a: GalleryImage, b: GalleryImage) => {
+          const orderA = a.order == null || String(a.order) === "" ? 999 : Number(a.order);
+          const orderB = b.order == null || String(b.order) === "" ? 999 : Number(b.order);
+          return (isNaN(orderA) ? 999 : orderA) - (isNaN(orderB) ? 999 : orderB);
+        });
         setImages(sorted);
         setLoading(false);
       })

@@ -7,7 +7,7 @@ type Theme = "dark" | "light";
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "dark";
+    if (typeof window === "undefined") return "light"; // Default to light mode on server-side
     const current = document.documentElement.dataset.theme;
     return current === "light" || current === "dark" ? current : "dark";
   });

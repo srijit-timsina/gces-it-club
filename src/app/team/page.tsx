@@ -10,6 +10,7 @@ export default function TeamPage() {
   const [team, setTeam] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [selectedTenure, setSelectedTenure] = useState<string>("");
 
   const loadTeam = () => {
     setError(false);
@@ -21,11 +22,31 @@ export default function TeamPage() {
       })
       .then((data) => {
         if (!Array.isArray(data)) throw new Error("Invalid data format");
-        const sorted = data.sort(
-          (a: TeamMember, b: TeamMember) =>
-            (Number(a.order) || 999) - (Number(b.order) || 999)
-        );
+        const sorted = data.sort((a: TeamMember, b: TeamMember) => {
+          const orderA = a.order == null || String(a.order) === "" ? 999 : Number(a.order);
+          const orderB = b.order == null || String(b.order) === "" ? 999 : Number(b.order);
+          return (isNaN(orderA) ? 999 : orderA) - (isNaN(orderB) ? 999 : orderB);
+        });
         setTeam(sorted);
+
+        // Auto-select the latest student tenure
+        if (sorted.length > 0) {
+          const studentMembersOnly = sorted.filter(
+            (m: TeamMember) => !roleIncludes(m.role, "faculty") && !roleIncludes(m.role, "advisor")
+          );
+          const uniqueTenures = Array.from(new Set(studentMembersOnly.map((m: TeamMember) => m.year).filter(Boolean))).sort((a, b) => {
+            const numA = parseInt(a.match(/\d+/)?.[0] || "0", 10);
+            const numB = parseInt(b.match(/\d+/)?.[0] || "0", 10);
+            if (numA !== numB) return numB - numA;
+            return b.localeCompare(a);
+          });
+          if (uniqueTenures.length > 0) {
+            setSelectedTenure(uniqueTenures[0]);
+          } else if (sorted.some((m: TeamMember) => roleIncludes(m.role, "faculty") || roleIncludes(m.role, "advisor"))) {
+            setSelectedTenure("faculty");
+          }
+        }
+
         setLoading(false);
       })
       .catch((err) => {
@@ -43,12 +64,22 @@ export default function TeamPage() {
   const roleIncludes = (role: string | undefined, keyword: string) =>
     (role || "").toLowerCase().includes(keyword);
 
-  const faculty = team.filter(
-    (m) => roleIncludes(m.role, "faculty") || roleIncludes(m.role, "advisor")
-  );
-  const students = team.filter(
-    (m) => !roleIncludes(m.role, "faculty") && !roleIncludes(m.role, "advisor")
-  );
+  const studentMembers = team.filter((m) => !roleIncludes(m.role, "faculty") && !roleIncludes(m.role, "advisor"));
+
+  const tenures = Array.from(new Set(studentMembers.map((m) => m.year).filter(Boolean))).sort((a, b) => {
+    const numA = parseInt(a.match(/\d+/)?.[0] || "0", 10);
+    const numB = parseInt(b.match(/\d+/)?.[0] || "0", 10);
+    if (numA !== numB) return numB - numA;
+    return b.localeCompare(a);
+  });
+
+  const faculty = selectedTenure === "faculty"
+    ? team.filter((m) => roleIncludes(m.role, "faculty") || roleIncludes(m.role, "advisor"))
+    : [];
+
+  const students = selectedTenure !== "faculty" && selectedTenure
+    ? studentMembers.filter((m) => m.year === selectedTenure)
+    : [];
 
   return (
     <div style={{ paddingTop: "80px", minHeight: "100vh" }}>
@@ -122,13 +153,94 @@ export default function TeamPage() {
               <Icon name="users" size={28} />
             </div>
             <h3 style={{ fontSize: "1.2rem", color: "var(--text-primary)", marginBottom: "0.5rem" }}>No team members found</h3>
-            <p>Team data will appear here once it is added to the sheet.</p>
+            <p>Team data will appear here once it is added.</p>
           </div>
         )}
 
         {/* Success: Team Grid */}
         {!loading && !error && team.length > 0 && (
           <>
+            {/* Tenure Selector */}
+            {(tenures.length > 0 || team.some(m => roleIncludes(m.role, "faculty") || roleIncludes(m.role, "advisor"))) && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "0.75rem",
+                  marginBottom: "3.5rem",
+                  flexWrap: "wrap",
+                }}
+              >
+                {tenures.map((tenure) => {
+                  const isActive = selectedTenure === tenure;
+                  return (
+                    <button
+                      key={tenure}
+                      onClick={() => setSelectedTenure(tenure)}
+                      style={{
+                        padding: "8px 20px",
+                        borderRadius: "9999px",
+                        fontSize: "0.9rem",
+                        fontWeight: 600,
+                        cursor: "pointer",
+                        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                        background: isActive ? "var(--accent-primary)" : "var(--control-bg)",
+                        color: isActive ? "#ffffff" : "var(--text-secondary)",
+                        border: isActive ? "1px solid var(--accent-primary)" : "1px solid var(--border)",
+                        boxShadow: isActive ? "0 4px 12px rgba(34, 85, 153, 0.3)" : "none",
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isActive) {
+                          e.currentTarget.style.borderColor = "var(--accent-primary)";
+                          e.currentTarget.style.color = "var(--text-primary)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isActive) {
+                          e.currentTarget.style.borderColor = "var(--border)";
+                          e.currentTarget.style.color = "var(--text-secondary)";
+                        }
+                      }}
+                    >
+                      {/^\d{4}/.test(tenure) ? `Committee ${tenure}` : tenure}
+                    </button>
+                  );
+                })}
+
+                {team.some(m => roleIncludes(m.role, "faculty") || roleIncludes(m.role, "advisor")) && (
+                  <button
+                    onClick={() => setSelectedTenure("faculty")}
+                    style={{
+                      padding: "8px 20px",
+                      borderRadius: "9999px",
+                      fontSize: "0.9rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                      background: selectedTenure === "faculty" ? "var(--accent-primary)" : "var(--control-bg)",
+                      color: selectedTenure === "faculty" ? "#ffffff" : "var(--text-secondary)",
+                      border: selectedTenure === "faculty" ? "1px solid var(--accent-primary)" : "1px solid var(--border)",
+                      boxShadow: selectedTenure === "faculty" ? "0 4px 12px rgba(34, 85, 153, 0.3)" : "none",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (selectedTenure !== "faculty") {
+                        e.currentTarget.style.borderColor = "var(--accent-primary)";
+                        e.currentTarget.style.color = "var(--text-primary)";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (selectedTenure !== "faculty") {
+                        e.currentTarget.style.borderColor = "var(--border)";
+                        e.currentTarget.style.color = "var(--text-secondary)";
+                      }
+                    }}
+                  >
+                    Faculty Advisors
+                  </button>
+                )}
+              </div>
+            )}
+
             {faculty.length > 0 && (
               <div style={{ marginBottom: "5rem" }}>
                 <h2

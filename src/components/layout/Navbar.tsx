@@ -132,6 +132,8 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
                   className={`nav-link ${isActive ? "is-active" : ""}`}
                   style={{
                     padding: "6px 14px",
@@ -224,6 +226,8 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  target={"external" in link && link.external ? "_blank" : undefined}
+                  rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
                   className={`nav-link ${isActive ? "is-active" : ""}`}
                   style={{
                     display: "block",

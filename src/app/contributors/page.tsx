@@ -14,7 +14,11 @@ export default function ContributorsPage() {
     fetch("/api/contributors")
       .then((res) => res.json())
       .then((data) => {
-        const sorted = data.sort((a: Contributor, b: Contributor) => (Number(a.order) || 999) - (Number(b.order) || 999));
+        const sorted = data.sort((a: Contributor, b: Contributor) => {
+          const orderA = a.order == null || String(a.order) === "" ? 999 : Number(a.order);
+          const orderB = b.order == null || String(b.order) === "" ? 999 : Number(b.order);
+          return (isNaN(orderA) ? 999 : orderA) - (isNaN(orderB) ? 999 : orderB);
+        });
         setContributors(sorted);
         setLoading(false);
       })

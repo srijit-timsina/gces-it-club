@@ -15,6 +15,7 @@ function parseCSV<T>(csv: string): T[] {
   for (let i = 0; i < csv.length; i++) {
     const char = csv[i];
     if (char === '"') {
+      current += '"';
       if (inQuotes && csv[i + 1] === '"') {
         current += '"';
         i++; // skip escaped quote

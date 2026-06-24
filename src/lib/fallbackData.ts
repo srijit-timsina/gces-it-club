@@ -1,39 +1,39 @@
 import { Event, TeamMember, Resource, Announcement, GalleryImage, FormEntry, Contributor } from "./types";
 
 export const fallbackEvents: Event[] = [
-  {
-    id: "1",
-    title: "Career in IT",
-    date: "2024-05-15",
-    time: "10:00 AM",
-    location: "GCES Auditorium",
-    description: "An interactive session exploring diverse career paths in Information Technology.",
-    image_url: "/Carousel/Career in IT.jpg",
-    register_link: "",
-    status: "past",
-  },
-  {
-    id: "2",
-    title: "Software Testing Workshop",
-    date: "2024-07-20",
-    time: "2:00 PM",
-    location: "Lab 3",
-    description: "Hands-on workshop on modern software testing practices and tools.",
-    image_url: "/Carousel/Software Testing.jpg",
-    register_link: "",
-    status: "past",
-  },
-  {
-    id: "3",
-    title: "WordPress x React",
-    date: "2024-08-10",
-    time: "11:00 AM",
-    location: "Seminar Hall",
-    description: "Learn how to integrate WordPress as a headless CMS with React.",
-    image_url: "/Carousel/WordpressXReact.jpg",
-    register_link: "",
-    status: "past",
-  },
+  // {
+  //   id: "1",
+  //   title: "Career in IT",
+  //   date: "2024-05-15",
+  //   time: "10:00 AM",
+  //   location: "GCES Auditorium",
+  //   description: "An interactive session exploring diverse career paths in Information Technology.",
+  //   image_url: "/Carousel/Career in IT.jpg",
+  //   register_link: "",
+  //   status: "past",
+  // },
+  // {
+  //   id: "2",
+  //   title: "Software Testing Workshop",
+  //   date: "2024-07-20",
+  //   time: "2:00 PM",
+  //   location: "Lab 3",
+  //   description: "Hands-on workshop on modern software testing practices and tools.",
+  //   image_url: "/Carousel/Software Testing.jpg",
+  //   register_link: "",
+  //   status: "past",
+  // },
+  // {
+  //   id: "3",
+  //   title: "WordPress x React",
+  //   date: "2024-08-10",
+  //   time: "11:00 AM",
+  //   location: "Seminar Hall",
+  //   description: "Learn how to integrate WordPress as a headless CMS with React.",
+  //   image_url: "/Carousel/WordpressXReact.jpg",
+  //   register_link: "",
+  //   status: "past",
+  // },
 ];
 
 export const fallbackTeam: TeamMember[] = [
@@ -157,14 +157,14 @@ export const fallbackTeam: TeamMember[] = [
 ];
 
 export const fallbackResources: Resource[] = [
-  {
-    id: "1",
-    title: "React Documentation",
-    type: "docs",
-    link: "https://react.dev",
-    description: "Official React documentation.",
-    tags: "react, frontend",
-  },
+  // {
+  //   id: "1",
+  //   title: "React Documentation",
+  //   type: "docs",
+  //   link: "https://react.dev",
+  //   description: "Official React documentation.",
+  //   tags: "react, frontend",
+  // },
 ];
 
 export const fallbackAnnouncements: Announcement[] = [
