@@ -1,0 +1,25 @@
+name: Remote Deploy Next.js App
+
+on:
+  push:
+    branches:
+      - main  # Triggers whenever you push changes to your main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploying via SSH connection
+        uses: appleboy/ssh-action@master
+        with:
+          host: gcesitclub.gces.edu.np
+          username: srijittimsina
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
+          script: |
+            cd /var/www/gcesitclub.gces.edu.np
+            git pull origin main
+            npm install
+            npm run build
+            # Gracefully restarts your app in the background via PM2
+            pm2 restart gces-itclub || pm2 start npm --name "gces-itclub" -- start
