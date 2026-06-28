@@ -22,4 +22,4 @@ jobs:
             npm install
             npm run build
             # Gracefully restarts your app in the background via PM2
-            pm2 restart gces-itclub || pm2 start npm --name "gces-itclub" -- start
+            pm2 restart gcesitclub || pm2 start npm --name "gcesitclub" -- start
